@@ -15,8 +15,12 @@ router.post('/ninjas',function(req,res,next){
 });
 
 //update a ninja in the db
-router.put('/ninjas:id',function(req,res,next){
-    res.send({type:'PUT'});
+router.put('/ninjas/:id',function(req,res,next){
+  Ninja.findByIdAndUpdate({_id: req.params.id},req.body).then(function(){//เราไม่ส่งninjaเข้าไปในฟังชั่นตรนี้ เพราะ res.send(ninja); จะแสดงอันเก่าที่กับไม่update
+    Ninja.findOne({_id: req.params.id}).then(function(ninja){
+      res.send(ninja);
+    });
+  }).catch(next);
 });
 
 //delete a ninjas from the db

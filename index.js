@@ -14,6 +14,8 @@ app.use(bodyPaser.json());
 //initialize routes
 app.use('/api',require('./routes/api'));
 
+//
+app.use(express.static('public'));
 
 //error handling  middleware
 app.use(function(err,req,res,next){
